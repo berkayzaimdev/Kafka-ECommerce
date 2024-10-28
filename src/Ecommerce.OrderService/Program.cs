@@ -1,5 +1,6 @@
 using Ecommerce.Common;
 using Ecommerce.OrderService.Data;
+using Ecommerce.OrderService.Kafka;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ builder.Services.AddDbContext<OrderDbContext>(opts =>
 });
 
 builder.Services.AddSingleton<IKafkaProducer, KafkaProducer>();
+builder.Services.AddHostedService<OrderConsumer>();
 
 var app = builder.Build();
 
