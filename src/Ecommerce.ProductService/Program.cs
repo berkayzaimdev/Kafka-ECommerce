@@ -1,3 +1,4 @@
+using Ecommerce.Common;
 using Ecommerce.ProductService.Data;
 using Ecommerce.ProductService.Kafka;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,8 @@ builder.Services.AddDbContext<ProductDbContext>(opts =>
     opts.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=EcommerceProduct;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
 });
 
-builder.Services.AddHostedService<KafkaConsumer>();
+builder.Services.AddSingleton<IKafkaProducer, KafkaProducer>();
+builder.Services.AddHostedService<ProductConsumer>();
 
 var app = builder.Build();
 
