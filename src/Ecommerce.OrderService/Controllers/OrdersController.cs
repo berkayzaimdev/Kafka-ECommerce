@@ -22,6 +22,7 @@ public class OrdersController(OrderDbContext dbContext, IKafkaProducer producer)
     public async Task<OrderModel> CreateOrder(OrderModel order)
     {
         order.OrderDate = DateTime.Now;
+        order.Status = "Pending";
         dbContext.Orders.Add(order);
         await dbContext.SaveChangesAsync();
 
